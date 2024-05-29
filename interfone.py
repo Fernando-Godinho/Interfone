@@ -18,8 +18,13 @@ def carregar_dados():
         predio = row[col_predio]
         apartamento = row[col_apartamento]  # Convertendo para inteiro e depois para string
         nome = row[col_nome]
-        telefone = int(row[col_telefone])  # Convertendo para inteiro antes de string
-        telefone_str = str(telefone)  # Convertendo para string
+        telefone = row[col_telefone]
+        
+        # Verificar se o valor do telefone é numérico
+        if isinstance(telefone, (int, float)):
+            telefone_str = str(int(telefone))  # Convertendo para inteiro antes de string
+        else:
+            telefone_str = str(telefone)
         
         if predio not in dados_predios:
             dados_predios[predio] = {}
