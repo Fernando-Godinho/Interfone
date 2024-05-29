@@ -5,7 +5,7 @@ import urllib.parse
 # Função para carregar os dados do CSV e organizá-los em um dicionário
 def carregar_dados():
     csv_path = 'interfone.csv'
-    df = pd.read_csv(csv_path, delimiter=';', dtype={"apartamento": float}, na_values='')
+    df = pd.read_csv(csv_path, delimiter=';')
     
     # Ajuste os nomes das colunas de acordo com o CSV
     col_predio = 'predio'
@@ -15,8 +15,8 @@ def carregar_dados():
     
     dados_predios = {}
     for _, row in df.iterrows():
-        predio = str(row[col_predio])
-        apartamento = str(row[col_apartamento])  # Convertendo para inteiro e depois para string
+        predio = row[col_predio]
+        apartamento = row[col_apartamento]  # Convertendo para inteiro e depois para string
         nome = row[col_nome]
         telefone = str(row[col_telefone])
         
