@@ -18,7 +18,8 @@ def carregar_dados():
         predio = row[col_predio]
         apartamento = row[col_apartamento]  # Convertendo para inteiro e depois para string
         nome = row[col_nome]
-        telefone = str(row[col_telefone])  # Convertendo explicitamente para string
+        telefone = int(row[col_telefone])  # Convertendo para inteiro antes de string
+        telefone_str = str(telefone)  # Convertendo para string
         
         if predio not in dados_predios:
             dados_predios[predio] = {}
@@ -26,7 +27,7 @@ def carregar_dados():
         if apartamento not in dados_predios[predio]:
             dados_predios[predio][apartamento] = []
         
-        dados_predios[predio][apartamento].append((nome, telefone))
+        dados_predios[predio][apartamento].append((nome, telefone_str))
     
     return dados_predios
 
