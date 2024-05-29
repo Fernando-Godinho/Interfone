@@ -16,7 +16,7 @@ def carregar_dados():
     dados_predios = {}
     for _, row in df.iterrows():
         predio = str(row[col_predio])
-        apartamento = int(row[col_apartamento])  # Convertendo para inteiro e depois para string
+        apartamento = str(row[col_apartamento])  # Convertendo para inteiro e depois para string
         nome = row[col_nome]
         telefone = str(row[col_telefone])
         
