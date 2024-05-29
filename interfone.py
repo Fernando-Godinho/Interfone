@@ -67,7 +67,8 @@ def main():
             st.subheader(f"Contatos do apartamento {apartamento}:")
             contatos = dados_predios[predio][apartamento]
             for nome, telefone in contatos:
-                url_whatsapp = f"https://wa.me/{urllib.parse.quote(telefone)}"
+                url_whatsapp = f"https://wa.me/{urllib.parse.quote(telefone)}"]
+                st.write(url_whatsapp)
                 button_label = f"Abrir WhatsApp: {nome}"
                 
                 # Centralizar o botão e definir tamanho
