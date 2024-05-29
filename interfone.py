@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import urllib.parse
@@ -16,11 +17,9 @@ def carregar_dados():
     dados_predios = {}
     for _, row in df.iterrows():
         predio = row[col_predio]
-        apartamento = row[col_apartamento]  # Convertendo para inteiro e depois para string
+        apartamento = str(row[col_apartamento]).split('.')[0]  # Remover a parte decimal do apartamento
         nome = row[col_nome]
-        telefone = row[col_telefone]
-        
-        telefone_str = str(telefone).split('.')[0]  # Remover a parte decimal
+        telefone = str(row[col_telefone]).split('.')[0]  # Remover a parte decimal do telefone
         
         if predio not in dados_predios:
             dados_predios[predio] = {}
@@ -28,7 +27,7 @@ def carregar_dados():
         if apartamento not in dados_predios[predio]:
             dados_predios[predio][apartamento] = []
         
-        dados_predios[predio][apartamento].append((nome, telefone_str))
+        dados_predios[predio][apartamento].append((nome, telefone))
     
     return dados_predios
 
@@ -63,7 +62,6 @@ def main():
         # Escolher o apartamento
         apartamento = st.selectbox("Escolha o apartamento:", list(dados_predios[predio].keys()))
         
-
         if apartamento:
             # Mostrar os nomes e números de telefone
             st.subheader(f"Contatos do apartamento {apartamento}:")
@@ -71,7 +69,6 @@ def main():
             for nome, telefone in contatos:
                 url_whatsapp = f"https://wa.me/55{telefone}"
                 
-       
                 button_label = f"Abrir WhatsApp: {nome}"
                 
                 # Centralizar o botão e definir tamanho
