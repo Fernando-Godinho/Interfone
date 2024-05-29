@@ -18,7 +18,7 @@ def carregar_dados():
         predio = row[col_predio]
         apartamento = row[col_apartamento]  # Convertendo para inteiro e depois para string
         nome = row[col_nome]
-        telefone = row[col_telefone]
+        telefone = str(row[col_telefone])  # Convertendo explicitamente para string
         
         if predio not in dados_predios:
             dados_predios[predio] = {}
@@ -68,6 +68,7 @@ def main():
             contatos = dados_predios[predio][apartamento]
             for nome, telefone in contatos:
                 url_whatsapp = f"https://wa.me/55{telefone}"
+                
                 st.write(url_whatsapp)
                 button_label = f"Abrir WhatsApp: {nome}"
                 
