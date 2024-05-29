@@ -20,7 +20,7 @@ def carregar_dados():
         nome = row[col_nome]
         telefone = row[col_telefone]
         
-        telefone_str = str(telefone)  # Convertendo diretamente para string
+        telefone_str = str(telefone).split('.')[0]  # Remover a parte decimal
         
         if predio not in dados_predios:
             dados_predios[predio] = {}
