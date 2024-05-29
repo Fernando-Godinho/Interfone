@@ -5,7 +5,7 @@ import urllib.parse
 # Função para carregar os dados do CSV e organizá-los em um dicionário
 def carregar_dados():
     csv_path = 'interfone.csv'
-    df = pd.read_csv(csv_path, delimiter=';')
+    df = pd.read_csv(csv_path, delimiter=';', dtype={"apartamento": float}, na_values='')
     
     # Ajuste os nomes das colunas de acordo com o CSV
     col_predio = 'predio'
@@ -15,10 +15,10 @@ def carregar_dados():
     
     dados_predios = {}
     for _, row in df.iterrows():
-        predio = row[col_predio]
-        apartamento = row[col_apartamento]
+        predio = str(row[col_predio])
+        apartamento = int(row[col_apartamento])  # Convertendo para inteiro e depois para string
         nome = row[col_nome]
-        telefone = row[col_telefone]
+        telefone = str(row[col_telefone])
         
         if predio not in dados_predios:
             dados_predios[predio] = {}
@@ -60,13 +60,14 @@ def main():
     if predio:
         # Escolher o apartamento
         apartamento = st.selectbox("Escolha o apartamento:", list(dados_predios[predio].keys()))
+        
 
         if apartamento:
             # Mostrar os nomes e números de telefone
             st.subheader(f"Contatos do apartamento {apartamento}:")
             contatos = dados_predios[predio][apartamento]
             for nome, telefone in contatos:
-                url_whatsapp = (f"https://wa.me/+55{telefone}")
+                url_whatsapp = f"https://wa.me/{urllib.parse.quote(telefone)}"
                 button_label = f"Abrir WhatsApp: {nome}"
                 
                 # Centralizar o botão e definir tamanho
