@@ -34,7 +34,7 @@ def carregar_dados():
 # Função principal do app
 def main():
     st.title("INTERFONE DIGITAL")
-    st.subheader("Condomínio Quinta do Bosque III"
+    st.subheader("Condomínio Quinta do Bosque III")
 
     # CSS para centralizar e definir o tamanho dos botões
     st.markdown("""
