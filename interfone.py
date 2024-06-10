@@ -77,7 +77,7 @@ def main():
                 button_html = f"""
                 <div class="center-button">
                     <a href="{url_whatsapp}" target="_blank">
-                        <button style="width: {len(nome)*10}px;">{button_label}</button>
+                        <button style="width: {len(nome+button_label)*10}px;">{button_label}</button>
                     </a>
                 </div>
                 """
