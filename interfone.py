@@ -73,14 +73,11 @@ def main():
                 
                 button_label = f"Abrir WhatsApp: {nome}"
                 
-                # Calcula a largura do botão com base no tamanho do texto do nome
-                button_style = f"width: {len(nome)*10}px;"  # Multiplicador arbitrário para ajustar o tamanho do botão
-                
                 # Centralizar o botão e definir tamanho
                 button_html = f"""
                 <div class="center-button">
                     <a href="{url_whatsapp}" target="_blank">
-                        <button style="{button_style}">{button_label}</button>
+                        <button style="width: {len(nome)*10}px;">{button_label}</button>
                     </a>
                 </div>
                 """
