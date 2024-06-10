@@ -26,7 +26,7 @@ def carregar_dados():
         if apartamento not in dados_predios[predio]:
             dados_predios[predio][apartamento] = []
         
-        dados_predios[predio][apartamento] = (nome, telefone)
+        dados_predios[predio][apartamento].append((nome, telefone))
     
     # Ordena os números dos apartamentos do menor para o maior
     for predio in dados_predios:
