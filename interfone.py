@@ -5,7 +5,7 @@ import urllib.parse
 # Função para carregar os dados do CSV e organizá-los em um dicionário
 def carregar_dados():
     csv_path = 'interfone.csv'
-    df = pd.read_csv(csv_path, delimiter=';')
+    df = pd.read_csv(csv_path, delimiter=';', encoding='utf-8')
     
     # Ajuste os nomes das colunas de acordo com o CSV
     col_predio = 'predio'
@@ -50,6 +50,10 @@ def main():
         }
         .center-button button {
             font-size: 16px;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -77,7 +81,7 @@ def main():
                 button_html = f"""
                 <div class="center-button">
                     <a href="{url_whatsapp}" target="_blank">
-                        <button style="width: {len(nome+button_label)*10}px;">{button_label}</button>
+                        <button>{button_label}</button>
                     </a>
                 </div>
                 """
