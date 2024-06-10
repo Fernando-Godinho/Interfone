@@ -16,28 +16,76 @@ def carregar_dados():
     dados_predios = {}
     for _, row in df.iterrows():
         predio = row[col_predio]
-        apartamento = str(row[col_apartamento]).split('.')[0]  # Remove decimais
-        nome = row[col_nome]
-        telefone = row[col_telefone]
+        apartamento = str(row[col_apartamento]).split('.')[0]  # Remover a parte decimal do apartamento
+        nome = str(row[col_nome])
+        telefone = str(row[col_telefone]).split('.')[0]  # Remover a parte decimal do telefone
         
         if predio not in dados_predios:
             dados_predios[predio] = {}
-        dados_predios[predio][apartamento] = {'nome': nome, 'telefone': telefone}
+        
+        if apartamento not in dados_predios[predio]:
+            dados_predios[predio][apartamento] = []
+        
+        dados_predios[predio][apartamento].append((nome, telefone))
     
+    # Ordena os números dos apartamentos do menor para o maior
+    for predio in dados_predios:
+        dados_predios[predio] = dict(sorted(dados_predios[predio].items(), key=lambda x: int(x[0]) if x[0].isdigit() else float('inf')))
+
     return dados_predios
 
-# Função para exibir os dados no Streamlit
-def exibir_dados(dados_predios):
-    st.title("Agenda Interfone")
-    
-    for predio, apartamentos in dados_predios.items():
-        with st.expander(f"Prédio {predio}"):
-            for apt, info in sorted(apartamentos.items()):
-                apt_label = urllib.parse.quote(f"Apartamento {apt}")
-                st.button(f"Apartamento {apt}", key=apt_label)
-                st.write(f"Nome: {info['nome']}")
-                st.write(f"Telefone: {info['telefone']}")
+# Função principal do app
+def main():
+    st.title("INTERFONE DIGITAL")
+    st.subheader("Condomínio Quinta do Bosque III")
 
-# Carrega os dados e exibe no Streamlit
-dados_predios = carregar_dados()
-exibir_dados(dados_predios)
+    # CSS para centralizar e definir o tamanho dos botões
+    st.markdown("""
+        <style>
+        .center-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .center-button button {
+            font-size: 16px;
+            width: 400px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+    # Carregar os dados do CSV
+    dados_predios = carregar_dados()
+
+    # Escolher o prédio
+    predio = st.selectbox("Escolha o prédio:", list(dados_predios.keys()))
+
+    if predio:
+        # Escolher o apartamento
+        apartamento = st.selectbox("Escolha o apartamento:", list(dados_predios[predio].keys()))
+        
+        if apartamento:
+            # Mostrar os nomes e números de telefone
+            st.subheader(f"Contatos do apartamento {apartamento}:")
+            contatos = dados_predios[predio][apartamento]
+            for nome, telefone in contatos:
+                url_whatsapp = f"https://wa.me/55{telefone}"
+                
+                button_label = f"Abrir WhatsApp: {nome}"
+                
+                # Centralizar o botão e definir tamanho
+                button_html = f"""
+                <div class="center-button">
+                    <a href="{url_whatsapp}" target="_blank">
+                        <button>{button_label}</button>
+                    </a>
+                </div>
+                """
+                st.markdown(button_html, unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    main()
