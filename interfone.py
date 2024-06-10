@@ -18,7 +18,7 @@ def carregar_dados():
         predio = row[col_predio]
         apartamento = str(row[col_apartamento]).split('.')[0]  # Remover a parte decimal do apartamento
         nome = str(row[col_nome])
-        telefone = str(row[col_telefone]).split('.')[0]  # Remover a parte decimal do telefone
+        telefone = str(row[col_telefone]).split('.')[0] if pd.notna(row[col_telefone]) else ''  # Remover a parte decimal do telefone
         
         if telefone:  # Verifica se o telefone não está vazio
             if predio not in dados_predios:
