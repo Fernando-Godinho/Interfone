@@ -20,13 +20,14 @@ def carregar_dados():
         nome = str(row[col_nome])
         telefone = str(row[col_telefone]).split('.')[0] if pd.notna(row[col_telefone]) else ''  # Remover a parte decimal do telefone
         
-        if predio not in dados_predios:
-            dados_predios[predio] = {}
-        
-        if apartamento not in dados_predios[predio]:
-            dados_predios[predio][apartamento] = []
-        
-        dados_predios[predio][apartamento].append((nome, telefone))
+        if telefone:  # Verifica se o telefone não está vazio
+            if predio not in dados_predios:
+                dados_predios[predio] = {}
+            
+            if apartamento not in dados_predios[predio]:
+                dados_predios[predio][apartamento] = []
+            
+            dados_predios[predio][apartamento].append((nome, telefone))
     
     # Ordena os números dos apartamentos do menor para o maior
     for predio in dados_predios:
@@ -87,8 +88,6 @@ def main():
                     </div>
                     """
                     st.markdown(button_html, unsafe_allow_html=True)
-                else:
-                    st.write(f"{nome} - Telefone não disponível")
 
 if __name__ == "__main__":
     main()
