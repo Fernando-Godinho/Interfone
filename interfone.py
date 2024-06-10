@@ -46,7 +46,7 @@ def main():
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         .center-button button {
             font-size: 16px;
