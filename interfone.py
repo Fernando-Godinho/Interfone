@@ -5,7 +5,7 @@ import urllib.parse
 # Função para carregar os dados do CSV e organizá-los em um dicionário
 def carregar_dados():
     csv_path = 'interfone.csv'
-    df = pd.read_csv(csv_path, delimiter=';', encoding='utf-8')
+    df = pd.read_csv(csv_path, delimiter=';', encoding='latin1')
     
     # Ajuste os nomes das colunas de acordo com o CSV
     col_predio = 'predio'
