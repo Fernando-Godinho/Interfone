@@ -50,7 +50,7 @@ def main():
         }
         .center-button button {
             font-size: 16px;
-            max-width: 100%;
+            width: 200px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
