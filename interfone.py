@@ -18,7 +18,7 @@ def carregar_dados():
         predio = row[col_predio]
         apartamento = str(row[col_apartamento]).split('.')[0]  # Remover a parte decimal do apartamento
         nome = row[col_nome]
-        telefone = int(row[col_telefone]).split('.')[0]  # Remover a parte decimal do telefone
+        telefone = str(row[col_telefone]).split('.')[0]  # Remover a parte decimal do telefone
         
         if predio not in dados_predios:
             dados_predios[predio] = {}
@@ -30,7 +30,7 @@ def carregar_dados():
     
     # Ordena os números dos apartamentos do menor para o maior
     for predio in dados_predios:
-        dados_predios[predio] = dict(sorted(dados_predios[predio].items(), key=lambda x: int(x[0])))
+        dados_predios[predio] = dict(sorted(dados_predios[predio].items(), key=lambda x: int(x[0]) if x[0].isdigit() else float('inf')))
 
     return dados_predios
 
