@@ -17,7 +17,7 @@ def carregar_dados():
     for _, row in df.iterrows():
         predio = row[col_predio]
         apartamento = str(row[col_apartamento]).split('.')[0]  # Remover a parte decimal do apartamento
-        nome = str(row[col_nome])
+        nome = row[col_nome]
         telefone = str(row[col_telefone]).split('.')[0]  # Remover a parte decimal do telefone
         
         if predio not in dados_predios:
@@ -46,11 +46,11 @@ def main():
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .center-button button {
             font-size: 16px;
-            width: 400px;
+            width: 200px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
