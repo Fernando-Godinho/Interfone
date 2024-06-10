@@ -20,13 +20,14 @@ def carregar_dados():
         nome = str(row[col_nome])
         telefone = str(row[col_telefone]).split('.')[0]  # Remover a parte decimal do telefone
         
-        if predio not in dados_predios:
-            dados_predios[predio] = {}
-        
-        if apartamento not in dados_predios[predio]:
-            dados_predios[predio][apartamento] = []
-        
-        dados_predios[predio][apartamento].append((nome, telefone))
+        if telefone:  # Verifica se o telefone não está vazio
+            if predio not in dados_predios:
+                dados_predios[predio] = {}
+            
+            if apartamento not in dados_predios[predio]:
+                dados_predios[predio][apartamento] = []
+            
+            dados_predios[predio][apartamento].append((nome, telefone))
     
     # Ordena os números dos apartamentos do menor para o maior
     for predio in dados_predios:
@@ -73,19 +74,20 @@ def main():
             st.subheader(f"Contatos do apartamento {apartamento}:")
             contatos = dados_predios[predio][apartamento]
             for nome, telefone in contatos:
-                url_whatsapp = f"https://wa.me/55{telefone}"
-                
-                button_label = f"{nome}"
-                
-                # Centralizar o botão e definir tamanho
-                button_html = f"""
-                <div class="center-button">
-                    <a href="{url_whatsapp}" target="_blank">
-                        <button>{button_label}</button>
-                    </a>
-                </div>
-                """
-                st.markdown(button_html, unsafe_allow_html=True)
+                if telefone:  # Verifica se o telefone não está vazio
+                    url_whatsapp = f"https://wa.me/55{telefone}"
+                    
+                    button_label = f"{nome}"
+                    
+                    # Centralizar o botão e definir tamanho
+                    button_html = f"""
+                    <div class="center-button">
+                        <a href="{url_whatsapp}" target="_blank">
+                            <button>{button_label}</button>
+                        </a>
+                    </div>
+                    """
+                    st.markdown(button_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
