@@ -75,7 +75,7 @@ def main():
             for nome, telefone in contatos:
                 url_whatsapp = f"https://wa.me/55{telefone}"
                 
-                button_label = f"Abrir WhatsApp: {nome}"
+                button_label = f"{nome}"
                 
                 # Centralizar o botão e definir tamanho
                 button_html = f"""
