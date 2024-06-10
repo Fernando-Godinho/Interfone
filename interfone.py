@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import urllib.parse
@@ -27,8 +26,12 @@ def carregar_dados():
         if apartamento not in dados_predios[predio]:
             dados_predios[predio][apartamento] = []
         
-        dados_predios[predio][apartamento].append((nome, telefone))
+        dados_predios[predio][apartamento] = (nome, telefone)
     
+    # Ordena os números dos apartamentos do menor para o maior
+    for predio in dados_predios:
+        dados_predios[predio] = dict(sorted(dados_predios[predio].items(), key=lambda x: int(x[0])))
+
     return dados_predios
 
 # Função principal do app
@@ -46,8 +49,6 @@ def main():
             margin-bottom: 10px;
         }
         .center-button button {
-            width: 200px;
-            height: 50px;
             font-size: 16px;
         }
         </style>
@@ -72,11 +73,14 @@ def main():
                 
                 button_label = f"Abrir WhatsApp: {nome}"
                 
+                # Calcula a largura do botão com base no tamanho do texto do nome
+                button_style = f"width: {len(nome)*10}px;"  # Multiplicador arbitrário para ajustar o tamanho do botão
+                
                 # Centralizar o botão e definir tamanho
                 button_html = f"""
                 <div class="center-button">
                     <a href="{url_whatsapp}" target="_blank">
-                        <button>{button_label}</button>
+                        <button style="{button_style}">{button_label}</button>
                     </a>
                 </div>
                 """
