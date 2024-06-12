@@ -75,7 +75,7 @@ def main():
             contatos = dados_predios[predio][apartamento]
             for nome, telefone in contatos:
                 if telefone:  # Verifica se o telefone não está vazio
-                    url_whatsapp = f"https://wa.me/55{telefone}?text=Olá,%20tenho%20uma%20entrega%20para%20{nome}"
+                    url_whatsapp = f"https://wa.me/55{telefone}?text=Olá%20tenho%20uma%20entrega%20para%20você."
                     
                     button_label = f"{nome}"
                     
